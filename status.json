@@ -1,0 +1,147 @@
+{
+  "generated_at": "2026-09-25T17:08:37+07:00",
+  "persona": "Nathan Arun",
+  "handles": {
+    "x": "https://x.com/nathan_arun_ai",
+    "ig": "https://www.instagram.com/nathan_arun_ai/",
+    "yt": "https://www.youtube.com/@nathan_arun_ai",
+    "yt_short_v1": "https://youtube.com/shorts/Wz3vm5mTpMU"
+  },
+  "machine": {
+    "note": "Agent runs on owner Mac. If Mac is OFF, work stops even if this page is online.",
+    "cdp_local_ok": true,
+    "timezone": "+07"
+  },
+  "cron_last": [
+    "# Cron last check",
+    "- checked_at: 2026-09-25T14:57:00+07:00",
+    "- job: ai-news-drip",
+    "- verdict: **POSTED**",
+    "- channel: TT",
+    "- pack: GPT-6 Sol/Luna (`2026-09-23-11b524309fbd-openai-launches-gpt-6-so`)",
+    "- url: https://www.tiktok.com/@nathan_arun_ai/video/7689378715192691988",
+    "- cdp: 9222 OK · Path B CDP raw Python · xurl unauth · agent-browser Tirith-blocked",
+    "- note: Studio Everyone · frame0 vision PASS · filename-title quirk non-blocking · on-frame HIA",
+    "- next: Opus YT/TT next-day (≥ Sep 26) · no re-post GPT-6 X/FB/IG/TT"
+  ],
+  "social_last": [
+    "# Social last",
+    "- at: 2026-09-25T14:57:00+07:00",
+    "- job: **ai-news-drip** (social-slow)",
+    "- cdp: :9222 OK (200) · Identity chrome-userdata · Path B CDP raw Python · xurl no apps · agent-browser Tirith-blocked",
+    "- public_post: **true** · channel **TT** · pack GPT-6 Sol/Luna",
+    "## This run",
+    "- **TT GPT-6 Sol/Luna:** https://www.tiktok.com/@nathan_arun_ai/video/7689378715192691988",
+    "- media: short.mp4 19s 1080×1920 · Studio Everyone · frame0 vision PASS",
+    "- proof: `content/news/published/2026-09-25-gpt6-sol-luna-tt.md` · profile newest id `7689378715192691988` (was only Muse `7688555630151339272`)",
+    "- note: Studio title/filename quirk; on-frame HIA holds number payoff",
+    "## Prior NEWS Opus 5.5",
+    "- X: https://x.com/nathan_arun_ai/status/2103051689628692837 (~16:20 Sep 24)",
+    "- FB: https://www.facebook.com/permalink.php?story_fbid=pfbid04CdFJ8THr6mRtehms7qLVSkxZQaUCwGAfPoBN7HeGqDQCRCyX2sMavg7fcRAK89El&id=61594304158989 (~08:39 Sep 25)",
+    "- IG: https://www.instagram.com/nathan_arun_ai/p/DdsozvMEpR_/ (~11:48 Sep 25)",
+    "- YT / TT: queued next-day after IG (prefer ≥ Sep 26)"
+  ],
+  "life_state": "{\n  \"phase\": \"awake\",\n  \"woke_at\": \"2026-09-23T16:39:46+07:00\",\n  \"day\": \"2026-09-23\",\n  \"hour_local\": 16,\n  \"machine\": \"mac-identity\",\n  \"note\": \"open computer = wake; closed = sleep (no cloud agent while off)\"\n}\n",
+  "heartbeat": "{\n  \"checked_at\": \"2026-09-14T13:43:30+07:00\",\n  \"verdict\": \"ACTIVE_OK\",\n  \"task\": \"yt-S26-no-zombie-readd-SEED\",\n  \"path\": \"content/youtube/S26-no-zombie-readd-after-prune-FULL.md\",\n  \"note\": \"boot/login\",\n  \"last_work_at\": \"2026-09-23T16:39:54+07:00\",\n  \"current_task\": \"wake-life: machine open → awake\",\n  \"artifact\": \"accounts/AWAKE.md\"\n}\n",
+  "git_log": [
+    "360b410 cron drip: TT GPT-6 Sol/Luna short live",
+    "11f7e9d ai-news-drip: IG Opus 5.5 live DdsozvMEpR_",
+    "e43dc3b cron drip: FB Opus 5.5 news (cover + HIA caption)",
+    "de519ac cron drip: Opus 5.5 X live",
+    "96fd333 cron drip: IG GPT-6 Sol/Luna posted",
+    "1aa16c6 cron drip: FB GPT-6 Sol/Luna cover + caption_fb",
+    "a1b37cb cron drip: X GPT-6 Sol/Luna live",
+    "ff90ff9 cron drip: Meta Muse TikTok short live",
+    "67fcc07 news: CRON_LAST morning factory 2026-09-23",
+    "ff92bdc news: morning packs 2026-09-23 GPT-6 Sol/Luna + Opus 5.5"
+  ],
+  "novel_chapter_files": 150,
+  "published": [
+    {
+      "file": "2026-09-11-yt-s01-v1-quality.md",
+      "urls": [
+        "https://youtube.com/shorts/Wz3vm5mTpMU"
+      ],
+      "title": "2026-09-11-yt-s01-v1-quality"
+    },
+    {
+      "file": "2026-09-11-yt-s01-three-layers.md",
+      "urls": [
+        "https://youtube.com/shorts/D4TEYLWRch0"
+      ],
+      "title": "2026-09-11-yt-s01-three-layers"
+    },
+    {
+      "file": "2026-09-11-x-first-prompt-3layers.md",
+      "urls": [
+        "https://x.com/nathan_arun_ai",
+        "https://x.com/nathan_arun_ai/status/2098258560509677802"
+      ],
+      "title": "2026-09-11-x-first-prompt-3layers"
+    },
+    {
+      "file": "2026-09-11-ig-first-prompt-3layers.md",
+      "urls": [
+        "https://www.instagram.com/nathan_arun_ai/"
+      ],
+      "title": "2026-09-11-ig-first-prompt-3layers"
+    },
+    {
+      "file": "2026-09-11-ig-first-comment-3layers.md",
+      "urls": [
+        "https://www.instagram.com/nathan_arun_ai/"
+      ],
+      "title": "2026-09-11-ig-first-comment-3layers"
+    },
+    {
+      "file": "2026-09-11-fb-factory-vs-shop.md",
+      "urls": [
+        "https://www.facebook.com/permalink.php?story_fbid=pfbid02oEwbaVQqpH6oUqoGCY19JE8NwzEHyMKkAVxKmEHzfsKv3kU1iwHwVdTxzkciAEQel&id=61594304158989"
+      ],
+      "title": "2026-09-11-fb-factory-vs-shop"
+    },
+    {
+      "file": "2026-09-10-prompt-with-example-image.md",
+      "urls": [],
+      "title": "2026-09-10-prompt-with-example-image"
+    },
+    {
+      "file": "2026-09-10-prompt-layers.md",
+      "urls": [],
+      "title": "2026-09-10-prompt-layers"
+    },
+    {
+      "file": "2026-09-10-oc-lina-fb.md",
+      "urls": [],
+      "title": "2026-09-10-oc-lina-fb"
+    },
+    {
+      "file": "2026-09-09.md",
+      "urls": [
+        "https://www.facebook.com/hinata.ez"
+      ],
+      "title": "2026-09-09"
+    }
+  ],
+  "jobs": [
+    {
+      "name": "factory",
+      "every": "3m",
+      "watch": "CRON_LAST.md"
+    },
+    {
+      "name": "life-engage",
+      "every": "45m",
+      "watch": "SOCIAL_LAST.md"
+    },
+    {
+      "name": "social-slow",
+      "every": "90m",
+      "watch": "SOCIAL_LAST + published"
+    }
+  ],
+  "auth": {
+    "algo": "sha256",
+    "hash": "97c6fbafa4873a5db03ea4a3d76089fec655f3e3a524481d11a7be29592a9445"
+  }
+}
