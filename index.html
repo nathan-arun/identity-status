@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Nathan status</title>
+<style>
+  :root { --bg:#0b0e14; --card:#141a24; --t:#e8eef8; --m:#8b98a8; --ok:#3dd68c; --warn:#f5a524; --line:#243044; --acc:#5bc0de; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; background:var(--bg); color:var(--t); }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.35rem; margin: 0 0 4px; }
+  .sub { color: var(--m); font-size: .9rem; margin-bottom: 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin: 12px 0; }
+  .row { display:flex; flex-wrap:wrap; gap:10px; }
+  .pill { display:inline-block; padding: 4px 10px; border-radius: 999px; background:#1c2433; color:var(--m); font-size:.8rem; }
+  .ok { color: var(--ok); } .warn { color: var(--warn); }
+  pre, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; white-space: pre-wrap; word-break: break-word; color: #c9d4e4; line-height: 1.45; }
+  a { color: var(--acc); }
+  label { display:block; margin: 8px 0 4px; color: var(--m); font-size:.85rem; }
+  input[type=password] { width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line); background:#0e131c; color:var(--t); font-size:1rem; }
+  button { margin-top:12px; width:100%; padding:12px; border:0; border-radius:10px; background:linear-gradient(135deg,#2a6f8f,#3d9aad); color:white; font-weight:600; cursor:pointer; }
+  button:hover { filter: brightness(1.08); }
+  #app { display:none; }
+  #login.error input { border-color: #e35; }
+  .links a { margin-right: 12px; }
+  footer { margin-top: 28px; color: var(--m); font-size: .75rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="login" class="card">
+    <h1>Nathan status</h1>
+    <p class="sub">แผงดูงาน agent (อ่านอย่างเดียว) · ใส่รหัสที่ตั้งไว้</p>
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" placeholder="status password"/>
+    <button id="go" type="button">เข้าดู</button>
+    <p id="err" class="warn mono" style="display:none;margin-top:10px"></p>
+  </div>
+
+  <div id="app">
+    <h1>Nathan Arun — live board</h1>
+    <p class="sub" id="gen">loading…</p>
+    <div class="card">
+      <div class="row" id="pills"></div>
+      <p class="mono" id="machine" style="margin-top:12px"></p>
+      <p class="links" id="handles"></p>
+    </div>
+    <div class="card"><h2 style="font-size:1rem;margin:0 0 8px">โรงงาน (CRON_LAST)</h2><pre id="cron"></pre></div>
+    <div class="card"><h2 style="font-size:1rem;margin:0 0 8px">Social / life</h2><pre id="social"></pre></div>
+    <div class="card"><h2 style="font-size:1rem;margin:0 0 8px">Git recent</h2><pre id="git"></pre></div>
+    <div class="card"><h2 style="font-size:1rem;margin:0 0 8px">Published URLs</h2><div id="pub" class="mono"></div></div>
+    <footer>
+      หน้านี้ไม่วิ่ง agent แทน Mac · ถ้าเครื่องปิด งานหยุด แต่ประวัติบนบอร์ดยังอ่านได้<br/>
+      ออก: <a href="#" id="logout">logout</a>
+    </footer>
+  </div>
+</div>
+<script>
+async function sha256hex(s){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function showApp(data){
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('gen').textContent = 'generated: ' + (data.generated_at||'?') + ' · novel files: ' + (data.novel_chapter_files||0);
+  const pills = document.getElementById('pills');
+  pills.innerHTML = '';
+  (data.jobs||[]).forEach(j=>{
+    const s=document.createElement('span'); s.className='pill'; s.textContent=j.name+' · '+j.every; pills.appendChild(s);
+  });
+  const cdp = data.machine && data.machine.cdp_local_ok;
+  const m=document.getElementById('machine');
+  m.innerHTML = (data.machine&&data.machine.note?data.machine.note:'') +
+    '<br/>CDP on builder machine when generated: <span class="'+(cdp?'ok':'warn')+'">'+(cdp?'up':'down/unknown')+'</span>';
+  const h=document.getElementById('handles');
+  h.innerHTML='';
+  if(data.handles){
+    Object.entries(data.handles).forEach(([k,v])=>{
+      const a=document.createElement('a'); a.href=v; a.target='_blank'; a.rel='noopener'; a.textContent=k; h.appendChild(a);
+    });
+  }
+  document.getElementById('cron').textContent=(data.cron_last||[]).join('\n');
+  document.getElementById('social').textContent=(data.social_last||[]).join('\n');
+  document.getElementById('git').textContent=(data.git_log||[]).join('\n');
+  const pub=document.getElementById('pub'); pub.innerHTML='';
+  (data.published||[]).forEach(p=>{
+    const div=document.createElement('div'); div.style.marginBottom='10px';
+    div.innerHTML='<strong>'+p.title+'</strong><br/>'+(p.urls||[]).map(u=>'<a href="'+u+'" target="_blank" rel="noopener">'+u+'</a>').join('<br/>');
+    pub.appendChild(div);
+  });
+}
+async function tryLogin(pw){
+  const res = await fetch('status.json?ts='+Date.now(), {cache:'no-store'});
+  if(!res.ok) throw new Error('โหลด status.json ไม่ได้');
+  const data = await res.json();
+  const hash = await sha256hex(pw);
+  if(!data.auth || hash !== data.auth.hash) throw new Error('รหัสไม่ถูก');
+  sessionStorage.setItem('nathan_status_ok','1');
+  sessionStorage.setItem('nathan_status_hash', hash);
+  showApp(data);
+}
+document.getElementById('go').onclick = async ()=>{
+  const err=document.getElementById('err'); err.style.display='none';
+  try { await tryLogin(document.getElementById('pw').value||''); }
+  catch(e){ err.style.display='block'; err.textContent=String(e.message||e); document.getElementById('login').classList.add('error'); }
+};
+document.getElementById('pw').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('go').click(); });
+document.getElementById('logout').onclick = (e)=>{ e.preventDefault(); sessionStorage.clear(); location.reload(); };
+(async ()=>{
+  if(sessionStorage.getItem('nathan_status_ok')==='1'){
+    try{
+      const res=await fetch('status.json?ts='+Date.now(),{cache:'no-store'});
+      const data=await res.json();
+      if(sessionStorage.getItem('nathan_status_hash')===data.auth.hash) showApp(data);
+    }catch(_){}
+  }
+})();
+</script>
+</body>
+</html>
